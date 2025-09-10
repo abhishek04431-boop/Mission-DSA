@@ -1,0 +1,45 @@
+class MyCircularQueue:
+    def __init__(self, k: int):
+        # Step 1: Initialize array and pointers
+        self.k = k
+        self.queue = [None] * k
+        self.front = 0  # Index of front element
+        self.rear = 0   # Index where next element goes
+        self.size = 0   # Current number of elements
+
+    def enQueue(self, value: int) -> bool:
+        # Step 2: Add element if not full
+        if self.isFull():
+            return False
+        self.queue[self.rear] = value
+        self.rear = (self.rear + 1) % self.k  # Wrap around
+        self.size += 1
+        return True
+
+    def deQueue(self) -> bool:
+        # Step 3: Remove element if not empty
+        if self.isEmpty():
+            return False
+        self.front = (self.front + 1) % self.k  # Wrap around
+        self.size -= 1
+        return True
+
+    def Front(self) -> int:
+        # Step 4: Return front element
+        if self.isEmpty():
+            return -1
+        return self.queue[self.front]
+
+    def Rear(self) -> int:
+        # Step 5: Return rear element
+        if self.isEmpty():
+            return -1
+        return self.queue[(self.rear - 1) % self.k]
+
+    def isEmpty(self) -> bool:
+        # Step 6: Check if empty
+        return self.size == 0
+
+    def isFull(self) -> bool:
+        # Step 7: Check if full
+        return self.size == self.k
